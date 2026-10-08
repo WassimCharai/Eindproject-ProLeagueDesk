@@ -1,0 +1,157 @@
+﻿<Window x:Class="ProLeagueDesk.RefereeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProLeagueDesk"
+        mc:Ignorable="d"
+        Title="Referee Dashboard - ProLeague Desk" Height="700" Width="800"
+        Icon="/image/mijnlogo.ico">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#15002B">
+            <Grid>
+                <StackPanel Margin="20">
+                    <Image Source="/image/mijnlogo.jpg" Width="100" Height="100" Margin="0,0,0,10"/>
+                    <TextBlock Foreground="White" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,30">PROLEAGUE DESK</TextBlock>
+
+                    <Border CornerRadius="10" Background="#250045" Padding="15" Margin="0,0,0,30">
+                        <StackPanel>
+                            <Ellipse Width="80" Height="80" Stroke="DodgerBlue" StrokeThickness="2">
+                                <Ellipse.Fill>
+                                    <ImageBrush x:Name="imgProfileBrush" Stretch="UniformToFill"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock x:Name="lblWelcome" Foreground="White" Margin="0,10,0,0" TextAlignment="Center" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                            <Button Name="btnAddPhoto" Click="btnAddPhoto_Click"  Margin="0,10,0,0" Background="Transparent" Foreground="LightGray" BorderBrush="Gray" FontSize="10">Foto Wijzigen</Button>
+                            <Button Name="btnRemovePhoto" Click="btnRemovePhoto_Click"  Margin="0,5,0,0" Background="Transparent" Foreground="#E57373" BorderBrush="Transparent" FontSize="10">Foto Verwijderen</Button>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Name="btnNavScores" Click="btnNavScores_Click" Height="50" Margin="0,0,0,10" Background="Transparent" Foreground="White" BorderBrush="Transparent">
+                        <StackPanel Orientation="Horizontal" Width="200">
+                            <TextBlock FontSize="18" Margin="10,0,15,0" VerticalAlignment="Center">📝</TextBlock>
+                            <TextBlock FontSize="15" VerticalAlignment="Center">Uitslagen Invoeren</TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Name="btnNavAgenda" Click="btnNavAgenda_Click" Height="50" Margin="0,0,0,10" Background="Transparent" Foreground="White" BorderBrush="Transparent">
+                        <StackPanel Orientation="Horizontal" Width="200">
+                            <TextBlock FontSize="18" Margin="10,0,15,0" VerticalAlignment="Center">📅</TextBlock>
+                            <TextBlock FontSize="15" VerticalAlignment="Center">Mijn Agenda</TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Name="btnNavHistorie" Click="btnNavHistorie_Click" Height="50" Margin="0,0,0,10" Background="Transparent" Foreground="White" BorderBrush="Transparent">
+                        <StackPanel Orientation="Horizontal" Width="200">
+                            <TextBlock FontSize="18" Margin="10,0,15,0" VerticalAlignment="Center">📜</TextBlock>
+                            <TextBlock FontSize="15" VerticalAlignment="Center">Geleide Wedstrijden</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <Button Name="btnLogout" Click="btnLogout_Click" VerticalAlignment="Bottom" Margin="20" Background="#8B3A3A" Foreground="White" Height="35" BorderBrush="Transparent">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources> Uitloggen
+                </Button>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="30">
+
+                <StackPanel x:Name="panelScores" Visibility="Visible">
+                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="#333" Margin="0,0,0,20">Uitslagen Registreren</TextBlock>
+
+                    <TextBlock FontWeight="SemiBold" Margin="0,0,0,10">Selecteer een te spelen wedstrijd uit de lijst:</TextBlock>
+                    <DataGrid x:Name="dgUpcomingMatches" Height="220" AutoGenerateColumns="False" Background="White" BorderBrush="#DDD" IsReadOnly="True" SelectionChanged="dgUpcomingMatches_SelectionChanged" Margin="0,0,0,20">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Matchdag" Width="80" Binding="{Binding MatchdayNumber}"/>
+                            <DataGridTextColumn Header="Thuis Ploeg" Width="*" Binding="{Binding HomeTeamName}"/>
+                            <DataGridTextColumn Header="Uit Ploeg" Width="*" Binding="{Binding AwayTeamName}"/>
+                            <DataGridTextColumn Header="Datum" Width="150" Binding="{Binding Date}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border Background="White" CornerRadius="10" Padding="20" Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Margin="0,0,0,15" FontSize="16">Match Score Ingeven</TextBlock>
+
+                            <Grid HorizontalAlignment="Center" Margin="0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="200"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock x:Name="lblHomeTeam" Text="Thuisteam" FontSize="16" FontWeight="SemiBold" Grid.Column="0" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                <TextBox x:Name="txtHomeScore" Grid.Column="1" Height="35" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                                <TextBlock Text="-" FontSize="20" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                <TextBox x:Name="txtAwayScore" Grid.Column="3" Height="35" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                <TextBlock x:Name="lblAwayTeam" Text="Uitteam" FontSize="16" FontWeight="SemiBold" Grid.Column="4" TextAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            </Grid>
+
+                            <Button x:Name="btnSaveScore" Click="btnSaveScore_Click" Content="💾 Uitslag Opslaan en Bevestigen" Height="40" Width="250" Background="#8BC34A" Foreground="White" FontSize="14" FontWeight="Bold" Margin="0,15,0,0" IsEnabled="False">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel x:Name="panelAgenda" Visibility="Collapsed">
+                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="#333" Margin="0,0,0,20">Mijn Agenda</TextBlock>
+
+                    <Border Background="White" CornerRadius="10" Padding="20">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Margin="0,0,0,10" FontSize="16">Alle Aan Jou Toegewezen Wedstrijden</TextBlock>
+                            <DataGrid x:Name="dgAllAssignedMatches" Height="400" AutoGenerateColumns="False" Background="White" BorderBrush="#DDD" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Matchdag" Width="80" Binding="{Binding MatchdayNumber}"/>
+                                    <DataGridTextColumn Header="Thuis Ploeg" Width="*" Binding="{Binding HomeTeamName}"/>
+                                    <DataGridTextColumn Header="Uit Ploeg" Width="*" Binding="{Binding AwayTeamName}"/>
+                                    <DataGridTextColumn Header="Datum" Width="150" Binding="{Binding Date}"/>
+                                    <DataGridTextColumn Header="Status / Uitslag" Width="120" Binding="{Binding ScoreDisplay}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel x:Name="panelHistorie" Visibility="Collapsed">
+                    <TextBlock FontSize="28" FontWeight="Bold" Foreground="#333" Margin="0,0,0,20">Geleide Wedstrijden</TextBlock>
+
+                    <Border Background="White" CornerRadius="10" Padding="20">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Margin="0,0,0,10" FontSize="16">Historie van Gefloten Matchen</TextBlock>
+                            <DataGrid x:Name="dgHistoryMatches" Height="400" AutoGenerateColumns="False" Background="White" BorderBrush="#DDD" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Matchdag" Width="80" Binding="{Binding MatchdayNumber}"/>
+                                    <DataGridTextColumn Header="Thuis Ploeg" Width="*" Binding="{Binding HomeTeamName}"/>
+                                    <DataGridTextColumn Header="Uitslag" Width="120" Binding="{Binding ScoreDisplay}"/>
+                                    <DataGridTextColumn Header="Uit Ploeg" Width="*" Binding="{Binding AwayTeamName}"/>
+                                    <DataGridTextColumn Header="Datum" Width="150" Binding="{Binding Date}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+            </Grid>
+        </ScrollViewer>
+        </Grid>
+</Window>

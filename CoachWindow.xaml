@@ -1,0 +1,237 @@
+<Window x:Class="ProLeagueDesk.CoachWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProLeagueDesk"
+        mc:Ignorable="d"
+        Title="Coach Dashboard - ProLeague Desk" Height="750" Width="950" WindowStartupLocation="CenterScreen"
+        Icon="/image/mijnlogo.ico">
+    <Grid Background="#F5F6FA">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#15002B" CornerRadius="0,20,20,0">
+            <Grid>
+                <StackPanel Margin="20">
+                    <Image Source="/image/mijnlogo.jpg" Width="90" Height="90" Margin="0,10,0,10"/>
+                    <TextBlock Foreground="White" FontSize="18" FontWeight="UltraBold" HorizontalAlignment="Center" Margin="0,0,0,25">PROLEAGUE DESK</TextBlock>
+
+                    <Border CornerRadius="15" Background="#250045" Padding="15" Margin="0,0,0,25">
+                        <StackPanel>
+                            <Ellipse Width="85" Height="85" Stroke="DodgerBlue" StrokeThickness="2.5">
+                                <Ellipse.Fill>
+                                    <ImageBrush x:Name="imgProfileBrush" Stretch="UniformToFill"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock x:Name="lblWelcome" Foreground="White" Margin="0,12,0,0" TextAlignment="Center" FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap"/>
+
+                            <Grid Margin="0,12,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Name="btnAddPhoto" Click="btnAddPhoto_Click" Grid.Column="0" Margin="2" Background="#341B54" Foreground="LightGray" BorderBrush="Transparent" FontSize="10" Padding="5,3">Foto Wijzigen</Button>
+                                <Button Name="btnRemovePhoto" Click="btnRemovePhoto_Click" Grid.Column="1" Margin="2" Background="Transparent" Foreground="#E57373" BorderBrush="Transparent" FontSize="10" Padding="5,3">Verwijderen</Button>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Name="btnNavTeam" Click="btnNavTeam_Click" Height="45" Margin="0,0,0,8" Background="Transparent" Foreground="White" BorderBrush="Transparent" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
+                            <TextBlock FontSize="16" Margin="0,0,15,0" VerticalAlignment="Center">🛡️</TextBlock>
+                            <TextBlock FontSize="14" FontWeight="Medium" VerticalAlignment="Center">Mijn Team</TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Name="btnNavMatches" Click="btnNavMatches_Click" Height="45" Margin="0,0,0,8" Background="Transparent" Foreground="White" BorderBrush="Transparent" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
+                            <TextBlock FontSize="16" Margin="0,0,15,0" VerticalAlignment="Center">📅</TextBlock>
+                            <TextBlock FontSize="14" FontWeight="Medium" VerticalAlignment="Center">Wedstrijden &amp; Schema</TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Name="btnNavStandings" Click="btnNavStandings_Click"  Height="45" Margin="0,0,0,8" Background="Transparent" Foreground="White" BorderBrush="Transparent" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
+                            <TextBlock FontSize="16" Margin="0,0,15,0" VerticalAlignment="Center">📊</TextBlock>
+                            <TextBlock FontSize="14" FontWeight="Medium" VerticalAlignment="Center">Ranglijst Bekijken</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <Button Name="btnLogout" Click="btnLogout_Click" VerticalAlignment="Bottom" Margin="20" Background="#8B3A3A" Foreground="White" Height="38" FontWeight="SemiBold" BorderBrush="Transparent">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources> Uitloggen
+                </Button>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="25">
+
+                <StackPanel x:Name="panelTeam" Visibility="Visible">
+                    <TextBlock x:Name="lblTeamNameHeader" FontSize="26" FontWeight="Bold" Foreground="#1A1A1A" Margin="0,0,0,5">Mijn Team: Laden...</TextBlock>
+                    <TextBlock Foreground="#7F8C8D" FontSize="13" Margin="0,0,0,20">Prestaties en statistieken van dit seizoen</TextBlock>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="White" CornerRadius="12" Padding="20" Margin="0,0,15,0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="15" Color="#000" Opacity="0.05" ShadowDepth="1"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Margin="0,0,0,15" FontSize="16" Foreground="#2C3E50">Team Prestaties</TextBlock>
+                                <Separator Background="#F0F2F5" Margin="0,0,0,15"/>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="🏆" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,15"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Totaal Aantal Punten" VerticalAlignment="Center" FontSize="14" Foreground="#555" Margin="0,0,0,15"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="2" x:Name="lblTeamPoints" FontWeight="Bold" FontSize="18" Foreground="DodgerBlue" VerticalAlignment="Center" Margin="0,0,0,15"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="⚽" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,15"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Doelpunten Voor (Gemaakt)" VerticalAlignment="Center" FontSize="14" Foreground="#555" Margin="0,0,0,15"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="2" x:Name="lblTeamGoalsFor" FontWeight="Bold" FontSize="16" Foreground="#2ECC71" VerticalAlignment="Center" Margin="0,0,0,15"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="🛡️" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Doelpunten Tegen (Geïncasseerd)" VerticalAlignment="Center" FontSize="14" Foreground="#555"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="2" x:Name="lblTeamGoalsAgainst" FontWeight="Bold" FontSize="16" Foreground="#E74C3C" VerticalAlignment="Center"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" Background="#250045" CornerRadius="12" Padding="20">
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock FontSize="20" Foreground="#D1C4E9" Margin="0,0,0,10">💡</TextBlock>
+                                <TextBlock FontSize="15" FontWeight="Bold" Foreground="#D1C4E9" Margin="0,0,0,5">Coach Tip</TextBlock>
+                                <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#D1C4E9" LineHeight="18">
+                                    Houd de conditie van je spelers optimaal. Bekijk het tabblad 'Wedstrijden' om je tactiek voor de komende tegenstander voor te bereiden!
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Border Background="White" CornerRadius="12" Padding="20" Margin="0,20,0,0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="15" Color="#000" Opacity="0.05" ShadowDepth="1"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <Grid Margin="0,0,0,10">
+                                <TextBlock FontWeight="Bold" FontSize="16" Foreground="#2C3E50">Tevredenheid van de Clubpresident</TextBlock>
+                                <TextBlock x:Name="lblSatisfactionPercentage" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" Foreground="#2C3E50" Text="0%"/>
+                            </Grid>
+                            <Separator Background="#F0F2F5" Margin="0,0,0,15"/>
+
+                            <Grid Height="30">
+                                <Border Background="#E9ECEF" CornerRadius="8"/>
+                                <Border x:Name="barSatisfaction" HorizontalAlignment="Left" CornerRadius="8" Width="0" Background="#2ECC71">
+                                    <Border Background="White" Opacity="0.1" CornerRadius="8" VerticalAlignment="Top" Height="12" Margin="0,1,0,0"/>
+                                </Border>
+                            </Grid>
+
+                            <TextBlock x:Name="lblPresidentComment" FontSize="12" FontStyle="Italic" Foreground="#7F8C8D" Margin="0,10,0,0" Text="De president analyseert momenteel de prestaties..."/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel x:Name="panelMatches" Visibility="Collapsed">
+                    <TextBlock FontSize="26" FontWeight="Bold" Foreground="#1A1A1A" Margin="0,0,5,5">Wedstrijdschema &amp; Resultaten</TextBlock>
+                    <TextBlock Foreground="#7F8C8D" FontSize="13" Margin="0,0,0,20">Volledig overzicht van de gespeelde en aankomende matchen</TextBlock>
+
+                    <Border Background="White" CornerRadius="12" Padding="15" Margin="0,0,0,20" BorderBrush="DodgerBlue" BorderThickness="1.5">
+                        <StackPanel>
+                            <Label Content="🔥 EERSTVOLGENDE WEDSTRIJD" FontSize="11" FontWeight="Bold" Foreground="DodgerBlue" Padding="0" Margin="0,0,0,10"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="lblNextHome" Grid.Column="0" FontSize="16" FontWeight="Bold" TextAlignment="Right" VerticalAlignment="Center" Text="Thuisploeg"/>
+                                <StackPanel Grid.Column="1" Margin="25,0">
+                                    <TextBlock x:Name="lblNextDate" FontSize="11" Foreground="Gray" HorizontalAlignment="Center" Text="Datum"/>
+                                    <TextBlock Text="VS" FontSize="20" FontWeight="UltraBold" Foreground="#34495E" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="lblNextMatchday" FontSize="11" Foreground="DimGray" HorizontalAlignment="Center" Text="Matchdag -"/>
+                                </StackPanel>
+                                <TextBlock x:Name="lblNextAway" Grid.Column="2" FontSize="16" FontWeight="Bold" TextAlignment="Left" VerticalAlignment="Center" Text="Uitploeg"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="White" CornerRadius="12" Padding="20">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="15" Color="#000" Opacity="0.05" ShadowDepth="1"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Margin="0,0,0,12" FontSize="16" Foreground="#2C3E50">Alle Competitiewedstrijden</TextBlock>
+                            <DataGrid x:Name="dgTeamMatches" Height="360" AutoGenerateColumns="False" Background="White" BorderBrush="#F0F2F5" RowBackground="White" AlternatingRowBackground="#FAFAFA" IsReadOnly="True" GridLinesVisibility="Horizontal">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Dag" Width="55" Binding="{Binding MatchdayNumber}"/>
+                                    <DataGridTextColumn Header="🏠 Thuis Ploeg" Width="*" Binding="{Binding HomeTeamName}"/>
+                                    <DataGridTextColumn Header="🚌 Uit Ploeg" Width="*" Binding="{Binding AwayTeamName}"/>
+                                    <DataGridTextColumn Header="📅 Datum" Width="120" Binding="{Binding Date}"/>
+                                    <DataGridTextColumn Header="🏁 Score" Width="100" Binding="{Binding ScoreDisplay}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontWeight" Value="SemiBold" />
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel x:Name="panelStandings" Visibility="Collapsed">
+                    <TextBlock FontSize="26" FontWeight="Bold" Foreground="#1A1A1A" Margin="0,0,0,5">Officiële Ranglijst</TextBlock>
+                    <TextBlock Foreground="#7F8C8D" FontSize="13" Margin="0,0,0,20">Huidige stand van zaken in de ProLeague</TextBlock>
+
+                    <Border Background="White" CornerRadius="12" Padding="20">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="15" Color="#000" Opacity="0.05" ShadowDepth="1"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <DataGrid x:Name="dgStandings" Height="450" AutoGenerateColumns="False" Background="White" BorderBrush="#F0F2F5" RowBackground="White" AlternatingRowBackground="#FAFAFA" IsReadOnly="True" GridLinesVisibility="Horizontal">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Pos" Width="50" Binding="{Binding Position}"/>
+                                    <DataGridTextColumn Header="Team" Width="*" Binding="{Binding TeamName}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontWeight" Value="Medium"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Punten" Width="80" Binding="{Binding Points}"/>
+                                    <DataGridTextColumn Header="DV" Width="60" Binding="{Binding GoalsFor}"/>
+                                    <DataGridTextColumn Header="DT" Width="60" Binding="{Binding GoalsAgainst}"/>
+                                    <DataGridTextColumn Header="Saldo" Width="70" Binding="{Binding GoalDifference}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>
